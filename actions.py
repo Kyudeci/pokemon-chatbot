@@ -4,7 +4,7 @@ import pandas as pd
 import requests
 from pathlib import Path
 from typing import Any, Text, Dict, List
-
+import supplement_functions as sp
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
@@ -98,8 +98,9 @@ class ActionGetInfo(Action):
                 
                 dispatcher.utter_message(text=f"{name}, The {species}. Originates from Generation {generation}.\n{desc}\nLearn more at {site_link}")
         else:
+            match, _ = sp.match2(pokemon_name,self.knowledge['name'])
             dispatcher.utter_message(
-                text=f"I do not recognize {name}, are you sure it is correctly spelled?")
+                text=f"I do not recognize the pokemon {name}. Did you mean {match}?")
         return []
 
 class MyKnowledgeBaseAction(ActionQueryKnowledgeBase):

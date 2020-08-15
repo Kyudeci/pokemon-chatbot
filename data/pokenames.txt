@@ -26,8 +26,10 @@ pikachu
 raichu
 sandshrew
 sandslash
+nidoran-f
 nidorina
 nidoqueen
+nidoran-m
 nidorino
 nidoking
 clefairy
@@ -78,6 +80,7 @@ slowpoke
 slowbro
 magnemite
 magneton
+farfetch'd
 doduo
 dodrio
 seel
@@ -116,6 +119,7 @@ goldeen
 seaking
 staryu
 starmie
+mr. mime
 scyther
 jynx
 electabuzz
@@ -379,6 +383,7 @@ kyogre
 groudon
 rayquaza
 jirachi
+deoxys
 turtwig
 grotle
 torterra
@@ -405,6 +410,7 @@ rampardos
 shieldon
 bastiodon
 burmy
+wormadam
 mothim
 combee
 vespiquen
@@ -430,6 +436,7 @@ skuntank
 bronzor
 bronzong
 bonsly
+mime jr.
 happiny
 chatot
 spiritomb
@@ -477,10 +484,12 @@ dialga
 palkia
 heatran
 regigigas
+giratina
 cresselia
 phione
 manaphy
 darkrai
+shaymin
 arceus
 victini
 snivy
@@ -543,6 +552,7 @@ sandile
 krokorok
 krookodile
 darumaka
+darmanitan
 maractus
 dwebble
 crustle
@@ -628,9 +638,14 @@ volcarona
 cobalion
 terrakion
 virizion
+tornadus
+thundurus
 reshiram
 zekrom
+landorus
 kyurem
+keldeo
+meloetta
 genesect
 chespin
 quilladin
@@ -660,10 +675,10 @@ pancham
 pangoro
 furfrou
 espurr
-meowsticmale
-meowsticfemale
+meowstic
 honedge
 doublade
+aegislash
 spritzee
 aromatisse
 swirlix
@@ -692,13 +707,17 @@ goodra
 klefki
 phantump
 trevenant
+pumpkaboo
+gourgeist
 bergmite
 avalugg
 noibat
 noivern
 xerneas
 yveltal
+zygarde
 diancie
+hoopa
 volcanion
 rowlet
 dartrix
@@ -727,7 +746,7 @@ lycanroc
 wishiwashi
 mareanie
 toxapex
-Mudbray
+mudbray
 mudsdale
 dewpider
 araquanid
@@ -767,8 +786,8 @@ tapu koko
 tapu lele
 tapu bulu
 tapu fini
-dosmog
-dosmoem
+cosmog
+cosmoem
 solgaleo
 lunala
 nihilego
@@ -785,6 +804,6 @@ poipole
 naganadel
 stakataka
 blacephalon
-meraora
+zeraora
 meltan
 melmetal
