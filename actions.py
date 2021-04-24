@@ -2,15 +2,20 @@ import json
 import numpy as np
 import pandas as pd
 import requests
+
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
 from pathlib import Path
 from typing import Any, Text, Dict, List
 import supplement_functions as sp
+import scrapy
+from scrapy.crawler import CrawlerProcess
+from collection.collection.spiders.info_spider import PkmnSpider 
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
 from rasa_sdk.knowledge_base.actions import ActionQueryKnowledgeBase
-
 
 # class ActionCheckExistence(Action):
 #     knowledge = Path("data/pokenames.txt").read_text().split("\n")
@@ -59,11 +64,12 @@ class ActionGetInfo(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        for blob in tracker.latest_message['entities']:
-            print(tracker.latest_message['entities'])
-            if blob['entity'] == 'search_param':
-                search = blob['value']
 
+        entities = tracker.latest_message['entities']
+        print(entities)
+        search = tracker.get_slot('search_param')
+        names = []
+        for blob in entities[1:]:
             if blob['entity'] == 'pokemon_name':
                 name_capture = blob['value'].split()
                 pokemon_name = blob['value'].replace(" ","").lower()
@@ -75,32 +81,34 @@ class ActionGetInfo(Action):
                     name = name.strip()
                 else:
                     name = blob['value'].capitalize()
-
-        if np.any(self.knowledge['name'] == name):
-            if search == 'type':
-                p_type = list(self.knowledge[search][self.knowledge['name']==name])[0]
-                if len(p_type) > 1:
-                    dispatcher.utter_message(text=f"{name} is {p_type[0]}/{p_type[1]} type.")
-                else:
-                    dispatcher.utter_message(text=f"{name} is {p_type[0]} type.")
-            if search == "description":
-                desc = list(self.knowledge[search][self.knowledge['name']==name])[0]
-                species = list(self.knowledge['species'][self.knowledge['name']==name])[0]
-                generation = list(self.knowledge['gen'][self.knowledge['name']==name])[0]
-                pokemon_id = self.knowledge[self.knowledge['name']==name].index[0]
-                # hyperlink_format = '<a href="{link}">{text}</a>'
-                # link_text = hyperlink_format.format
-                # site_link = link_text(link=f"https://serebii.net/pokedex-swsh/{pokemon_name}/",text='here')
-                site_link = f"https://serebii.net/pokedex-swsh/{pokemon_name}/"
-                verify = requests.get(site_link)
-                if verify.status_code > 400:
-                    site_link = self.determine_site_link(pokemon_id)
-                
-                dispatcher.utter_message(text=f"{name}, The {species}. Originates from Generation {generation}.\n{desc}\nLearn more at {site_link}")
-        else:
-            match, _ = sp.match2(pokemon_name,self.knowledge['name'])
-            dispatcher.utter_message(
-                text=f"I do not recognize the pokemon {name}. Did you mean {match}?")
+            names.append(name)
+        for name in names:
+            name = process.extractOne(name, self.knowledge['name'],scorer=fuzz.token_sort_ratio)[0]
+            print(name)
+            if np.any(self.knowledge['name'] == name):
+                if search == 'type':
+                    p_type = list(self.knowledge[search][self.knowledge['name']==name])[0]
+                    if len(p_type) > 1:
+                        dispatcher.utter_message(text=f"{name} is {p_type[0]}/{p_type[1]} type.")
+                    else:
+                        dispatcher.utter_message(text=f"{name} is {p_type[0]} type.")
+                if search == "description":
+                    desc = list(self.knowledge[search][self.knowledge['name']==name])[0]
+                    species = list(self.knowledge['species'][self.knowledge['name']==name])[0]
+                    generation = list(self.knowledge['gen'][self.knowledge['name']==name])[0]
+                    pokemon_id = self.knowledge[self.knowledge['name']==name].index[0]
+                    site_link = f"https://serebii.net/pokedex-swsh/{name}/"
+                    # verify = requests.get(site_link)
+                    # print(verify.status_code)
+                    # if verify.status_code > 400:
+                    #     site_link = self.determine_site_link(pokemon_id)
+                    # print(site_link)
+                    # PkmnSpider().start_requests([site_link])
+                    dispatcher.utter_message(text=f"{name}, The {species}. Originates from Generation {generation}.\n{desc}\nLearn more at {site_link}\n\n")
+            else:
+                match, _ = sp.match2(pokemon_name,self.knowledge['name'])
+                dispatcher.utter_message(
+                    text=f"I do not recognize the pokemon {name}. Did you mean {match}?")
         return []
 
 class MyKnowledgeBaseAction(ActionQueryKnowledgeBase):

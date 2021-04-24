@@ -1,7 +1,8 @@
+version: "2.0"
 actions:
 - action_query_knowledge_base
 - action_get_info
-- respond_faq
+- utter_faq
 - utter_ask_rephrase
 - utter_cheer_up
 - utter_did_that_help
@@ -76,10 +77,10 @@ slots:
   object_type:
     type: unfeaturized
   pokemon:
-    type: unfeaturized
+    type: any
   pokemon_name:
-    type: unfeaturized
+    type: any
   pokemon_type:
-    type: unfeaturized
+    type: any
   search_param:
     type: unfeaturized

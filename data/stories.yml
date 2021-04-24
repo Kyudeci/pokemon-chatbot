@@ -1,0 +1,80 @@
+version: "2.0"
+stories:
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: query_knowledge_base
+  - action: action_query_knowledge_base
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
+- story: say goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+- story: bot challenge
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- story: Story from Conversation ID e7faa71fd06d4bdcb9efbc3956aa72f6
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: bot_challenge
+  - action: utter_iamabot
+  - intent: query_knowledge_base
+    entities:
+    - object_type: pokemon
+  - slot_was_set:
+    - object_type: pokemon
+  - action: action_query_knowledge_base
+
+- story: faq
+  steps:
+  - intent: faq
+  - action: utter_faq
+- story: pokemon_faq
+  steps:
+  - intent: query_knowledge_base
+  - action: action_query_knowledge_base
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: query_knowledge_base
+  - action: action_query_knowledge_base
+
+- story: Story from Conversation ID 95f417e32ad24892b16cad68de69aac8
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: get_info
+    entities:
+    - search_param: type
+    - pokemon_name: torkoal
+  - slot_was_set:
+    - pokemon_name: torkoal
+  - slot_was_set:
+    - search_param: type
+  - action: action_get_info

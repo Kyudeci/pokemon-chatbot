@@ -16,7 +16,7 @@ def match2(sent_word,lexicon):
             break
         # Phase 2
         if sent_word[0] == current_word[0]: 
-            match_score+=(1/len(current_word))
+            match_score+=(1.5/len(current_word))
 
         if sent_word[-3:] == current_word[-3:]:
             match_score+=(3/len(current_word))
@@ -49,4 +49,5 @@ def match2(sent_word,lexicon):
             best_match = word
         match_score = 0
     top_matches = pd.DataFrame(best_matches.values(),best_matches.keys()).sort_values(0,ascending=False).head(3)
+    top_matches[0] = top_matches[0]*100/top_matches[0].max()
     return best_match, top_matches
