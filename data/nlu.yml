@@ -76,6 +76,7 @@ nlu:
     - give me another joke
     - oke, make me laugh one more time
     - make me laugh
+    - another joke
 - intent: faq/what_is_pokemon
   examples: |
     - what is pokemon?
@@ -114,7 +115,7 @@ nlu:
     - [info]{"entity": "search_param", "value": "description"} about [treecko](pokemon_name)
     - [chimchar](pokemon_name) [info]{"entity": "search_param", "value": "description"}
     - [info]{"entity": "search_param", "value": "description"} about [chimchar](pokemon_name) and [skitty](pokemon_name)
-    - [pokedex]{"entity": "search_param", "value": "description"} [mime jr.]{"entity": "pokemon_name", "start":8, "end":16,"value": "mime jr.")
+    - [pokedex]{"entity": "search_param", "value": "description"} [[mime jr.](pokemon_name)[mime jr.](pokemon_name)[mime jr.](pokemon_name)[mime jr.](pokemon_name)]{"entity": "pokemon_name", "start":8, "end":16,"value": "mime jr.")
     - [pokedex]{"entity": "search_param", "value": "description"} [ivysaur](pokemon_name)
     - [pokedex]{"entity": "search_param", "value": "description"} [venusaur](pokemon_name)
     - [pokedex]{"entity": "search_param", "value": "description"} [charmeleon](pokemon_name)
@@ -899,17 +900,18 @@ nlu:
     - [pokedex]{"entity": "search_param", "value": "description"} [guzzlord](pokemon_name)
     - [pokedex]{"entity": "search_param", "value": "description"} [necrozma](pokemon_name)
     - [pokedex]{"entity": "search_param", "value": "description"} [magearna](pokemon_name)
+    - about [arceus](pokemon_name)
+    - [about](search_param) [treecko](pokemon_name)
+    - [type](search_param) [pikachu](pokemon_name)
 - synonym: description
   examples: |
     - about
     - info
     - pokedex
-
 - synonym: mime jr.
   examples: |
     - mimejr
     - mime jr
-
 - synonym: mr. mime
   examples: |
     - mrmime
