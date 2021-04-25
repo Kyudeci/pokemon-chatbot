@@ -26,7 +26,7 @@ jobs:
       name: Build an action server with a custom actions
       uses: Kyudeci/pokemon-chatbot@master
       with:
-        docker_image_name: 'kyud3ci/pkmn-chatbot'
+        docker_image_name: 'kyud3c1/pkmn-chatbot'
         docker_registry_login: ${{ secrets.DOCKER_HUB_LOGIN }}
         docker_registry_password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
