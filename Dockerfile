@@ -16,5 +16,11 @@ RUN pip install -r requirements-actions.txt
 # Copy actions folder to working directory
 COPY ./actions /app/actions
 
+# Copies your code file from your action repository to the filesystem path `/` of the container
+COPY entrypoint.sh /entrypoint.sh
+
+# Executes `entrypoint.sh` when the Docker container starts up
+ENTRYPOINT ["/entrypoint.sh"]
+
 # By best practices, don't run the code with root user
 USER 1001
