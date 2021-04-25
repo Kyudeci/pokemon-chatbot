@@ -10,8 +10,14 @@ COPY actions/requirements-actions.txt ./
 # Change back to root user to install dependencies
 USER root
 
+# To install system dependencies
+RUN apt-get update -qq && \
+    apt-get install -y curl jq && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 # Install extra requirements for actions code, if necessary (uncomment next line)
-RUN pip install -r requirements-actions.txt
+RUN pip install --no-cache-dir -r requirements-actions.txt
 
 # Copy actions folder to working directory
 COPY ./actions /app/actions
