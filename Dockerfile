@@ -16,5 +16,9 @@ RUN pip install -r requirements-actions.txt
 # Copy actions folder to working directory
 COPY ./actions /app/actions
 
+ADD entrypoint.sh /
+ENTRYPOINT ["/entrypoint.sh"]
+CMD [""]
+
 # By best practices, don't run the code with root user
 USER 1001
