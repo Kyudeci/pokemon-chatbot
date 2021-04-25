@@ -26,9 +26,9 @@ jobs:
       name: Build an action server with a custom actions
       uses: Kyudeci/pokemon-chatbot@master
       with:
-        docker_image_name: 'kyud3c1/pkmn-chatbot'
-        docker_registry_login: ${{ secrets.DOCKER_HUB_LOGIN }}
-        docker_registry_password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+        input_docker_image_name: 'kyud3c1/pkmn-chatbot'
+        input_docker_registry_login: ${{ secrets.DOCKER_HUB_LOGIN }}
+        input_docker_registry_password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
         # github.sha - The commit SHA that triggered the workflow run
         docker_image_tag: ${{ github.sha }}
