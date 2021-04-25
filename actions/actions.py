@@ -8,9 +8,9 @@ from fuzzywuzzy import process
 from pathlib import Path
 from typing import Any, Text, Dict, List
 import supplement_functions as sp
-import scrapy
-from scrapy.crawler import CrawlerProcess
-from collection.collection.spiders.info_spider import PkmnSpider 
+# import scrapy
+# from scrapy.crawler import CrawlerProcess
+# from collection.collection.spiders.info_spider import PkmnSpider
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
@@ -38,7 +38,7 @@ from rasa_sdk.knowledge_base.actions import ActionQueryKnowledgeBase
 #         return []
 
 class ActionGetInfo(Action):
-    with open("data/pokemondb.json") as f:
+    with open("../data/pokemondb.json") as f:
             db = json.load(f)
 
     table = pd.DataFrame(db['pokemon'])
@@ -113,5 +113,5 @@ class ActionGetInfo(Action):
 
 class MyKnowledgeBaseAction(ActionQueryKnowledgeBase):
     def __init__(self):
-        knowledge_base = InMemoryKnowledgeBase("data/pokemondb.json")
+        knowledge_base = InMemoryKnowledgeBase("../data/pokemondb.json")
         super().__init__(knowledge_base)
