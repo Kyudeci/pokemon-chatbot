@@ -26,10 +26,17 @@ jobs:
       name: Build an action server with a custom actions
       uses: Kyudeci/pokemon-chatbot@master
       with:
-        input_docker_image_name: 'kyud3c1/pkmn-chatbot'
-        input_docker_registry_login: ${{ secrets.DOCKER_HUB_LOGIN }}
-        input_docker_registry_password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+        docker_image_name: 'kyud3c1/pkmn-chatbot'
+        docker_registry_login: ${{ secrets.DOCKER_HUB_LOGIN }}
+        docker_registry_password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
         # github.sha - The commit SHA that triggered the workflow run
         docker_image_tag: ${{ github.sha }}
+        dockerfile: './Dockerfile'
+        requirements_file: 'actions/requirements-actions.txt'
         
+    - name: "Upgrade a Rasa X deployment"
+      run: |
+        helm upgrade --install --reuse-values \
+          --set app.name=${{ steps.action_server.outputs.docker_image_name }} \
+          --set app.tag=${{ steps.action_server.outputs.docker_image_tag }} rasa rasa-x/rasa-x
